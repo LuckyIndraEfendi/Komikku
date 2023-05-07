@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@200&family=Poppins:wght@200&family=Rowdies:wght@300&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Custom styles using @apply */
+.scroll-thumb::-webkit-scrollbar {
+    @apply bg-gray-700 w-2 h-5;
+  }
+  
+  .scroll-thumb::-webkit-scrollbar-thumb {
+    @apply bg-blue-500 rounded-md;
+  }
+  
+body {
+    background: #16151D;
+    overflow-x: hidden;
+}
+
