@@ -4,8 +4,8 @@ import { BsTwitter } from 'react-icons/bs'
 const Footer = () => {
     return (
         <>
-            <div className="bg-[#2E2D2D] relative w-full sm:w-[110%] md:w-[107%]">
-                <footer className=' ring-1 ring-gray-500 mt-[15vh] '>
+            <div className="">
+                <footer className=' ring-1 bg-[#2E2D2D] ring-gray-500'>
                     <div className="ring-1 ring-gray-500 grid grid-cols-1 sm:flex px-4 gap-2 md:px-10 py-6  justify-between items-center mt-4 ">
                         <div className="">
                             <h1 className='text-[14px]  text-slate-200'>©2023 Lucky Anime. All Rights Reserved</h1>
@@ -20,6 +20,7 @@ const Footer = () => {
                     </div>
                 </footer>
             </div>
+
 
         </>
     )

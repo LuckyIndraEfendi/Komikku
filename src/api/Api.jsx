@@ -46,3 +46,24 @@ export const getDetailComic = async (id) => {
         console.error(err);
     }
 }
+
+export const getSearchComic = async (query) => {
+    try {
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/search/${query ? query : ""}`);
+        const data = await res.data;
+        return data.data
+    }
+    catch (err) {
+        console.error(err);
+    }
+}
+
+export const getChapters = async (name) => {
+    try {
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/chapter/ch/${name}`);
+        const data = await res.data
+        return data.data
+    } catch (err) {
+        console.error(err);
+    }
+}

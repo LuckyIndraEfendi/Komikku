@@ -92,7 +92,7 @@ const Main = () => {
                                     {popular2 ? (
                                         <div className="grid grid-cols-3 sm:grid-cols-3  md:grid-cols-5  gap-5  rounded-sm py-4 px-3">
                                             {popular2 ? popular2.map((item, i) => (
-                                                <a href={`/details${item.endpoint}`} key={i}>
+                                                <a href={`/details${item.endpoint}`} key={i} onClick={() => handleDesc(item.desc)}>
                                                     <div className="group cursor-pointer">
                                                         <div className="image bg-cover bg-no-repeat h-[18vh] duration-200  md:h-[30vh] rounded-md relative bg-blend-darken  bg-top group-hover:opacity-80 " style={{ backgroundImage: `url(${item.image})` }}>
                                                             <button className='bottom-2 absolute left-2 bg-yellow-400 px-2 py-1 uppercase text-[11px] flex items-center gap-[2px] rounded-md font-bold font-fira'> <IoMdColorPalette size={15} /> <span >Warna</span></button>
@@ -146,7 +146,7 @@ const Main = () => {
                                     {recomendation ? (
                                         <div className="grid grid-cols-3 sm:grid-cols-3  md:grid-cols-5  gap-5  rounded-sm py-4 px-3">
                                             {recomendation ? recomendation.map((item, i) => (
-                                                <a href={`/details${item.endpoint}`} key={i}>
+                                                <a href={`/details${item.endpoint}`} key={i} onClick={() => handleDesc(item.desc)}>
                                                     <div className="group cursor-pointer">
                                                         <div className="image bg-cover bg-no-repeat h-[18vh] duration-200  md:h-[30vh] rounded-md relative bg-blend-darken  bg-top group-hover:opacity-80 " style={{ backgroundImage: `url(${item.image})` }}>
                                                             <button className='bottom-2 absolute left-2 bg-yellow-400 px-2 py-1 uppercase text-[11px] flex items-center gap-[2px] rounded-md font-bold font-fira'> <IoMdColorPalette size={15} /> <span >Warna</span></button>

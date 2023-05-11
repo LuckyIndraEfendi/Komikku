@@ -6,6 +6,7 @@ import { useGlobalContext } from "../context/StateContext"
 import Skeletons from '../lib/Skeletons'
 import { useParams } from "react-router-dom"
 import { getDetailComic } from "../api/Api"
+
 const Details = () => {
     const { recomendation, handleDesc } = useGlobalContext()
     const [details, setDetails] = useState([])
@@ -52,7 +53,7 @@ const Details = () => {
                                 <div className="grid gap-4">
                                     <div className="bg-[#222222] px-3 py-3">
                                         <div className="title mb-5">
-                                            <h1 className='text-white md:text-lg font-fira font-medium'>Pendekar Pedang Sihir Rendah Reinkarnasi Bahasa Indonesia</h1>
+                                            <h1 className='text-white md:text-lg font-fira font-medium'>{details.title ? details.title : ""} Bahasa Indonesia</h1>
                                         </div>
                                         <div className="md:flex grid justify-center w-full gap-5 ">
                                             <div className="grid gap-6 justify-center ">
@@ -62,14 +63,13 @@ const Details = () => {
                                             <div className="py-2">
                                                 <p className='text-[#B8B8B8] text-sm'>{desc ? desc : ""}</p>
                                                 <div className="mt-3 flex gap-3">
-                                                    {details.chapter_list ? details.chapter_list.slice(-1).map((chapter, index) => (
-                                                        <a href={`/watch${chapter.endpoint}`}><button className='bg-[#363636] py-1 px-3 rounded-md shadow-md shadow-gray-800  text-white'><span className='text-sm'>First :</span> <strong>{chapter.name}</strong></button></a>
+                                                    {details.chapter_list ? details.chapter_list.slice(-1).map((chapter, i) => (
+                                                        <a href={`/watch${chapter.endpoint}`}><button className='bg-[#363636] py-1 px-3 rounded-md shadow-md shadow-gray-800  text-white' key={i}><span className='text-sm'>First :</span> <strong>{chapter.name}</strong></button></a>
                                                     )) : "Loading..."}
-                                                    {details.chapter_list ? details.chapter_list.slice(0, 1).map((chapter, index) => (
-                                                        <a href={`/watch${chapter.endpoint}`}><button className='bg-[#363636] py-1 px-3 rounded-md shadow-md shadow-gray-800  text-white'><span className='text-sm'>Last :</span> <strong>{chapter.name}</strong></button></a>
+                                                    {details.chapter_list ? details.chapter_list.slice(0, 1).map((chapter, i) => (
+                                                        <a href={`/watch${chapter.endpoint}`}><button className='bg-[#363636] py-1 px-3 rounded-md shadow-md shadow-gray-800  text-white' key={i}><span className='text-sm'>Last :</span> <strong>{chapter.name}</strong></button></a>
                                                     )) : "Loading..."}
                                                 </div>
-
                                                 <div className="">
                                                     <div className="table">
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 px-3 py-4">
@@ -100,8 +100,8 @@ const Details = () => {
 
                                                                     </div>
                                                                     <div className="col-span-4">
-                                                                        <h1 className='border-gray-500 border-b-[1px]  text-[#A4A4A4] text-sm font-fira border-l-[1px] px-3 py-2 '>{details.type ? details.type : ""}</h1>
-                                                                        <h1 className='border-gray-500 border-b-[1px] text-[#A4A4A4] text-sm font-fira border-l-[1px] px-3 py-[14px] md:py-[14px] '>{details.author ? details.author : ""}</h1>
+                                                                        <h1 className='border-gray-500 border-b-[1px]  text-[#A4A4A4] text-sm font-fira border-l-[1px] px-3 py-2 '>{details.type ? details.type : "Loading..."}</h1>
+                                                                        <h1 className='border-gray-500 border-b-[1px] text-[#A4A4A4] text-sm font-fira border-l-[1px] px-3 py-[14px] md:py-[14px] '>{details.author ? details.author : "Loading..."}</h1>
                                                                         <h1 className='border-gray-500 border-b-[1px] text-[#A4A4A4] text-sm font-fira border-l-[1px] px-3 md:py-[14px] py-[14px] '><em>Lucky</em></h1>
                                                                         <h1 className='border-gray-500 border-b-[1px] text-[#A4A4A4] text-sm font-fira border-l-[1px] px-3 md:py-[14px] py-[14px] '> <a href="https://github.com/LuckyIndraEfendi" className="hover:text-blue-400" target="_blank">Follow my Github</a> </h1>
                                                                     </div>
@@ -113,7 +113,9 @@ const Details = () => {
                                                         <ul className='flex  flex-wrap gap-3'>
                                                             {details.genre ? details.genre.map((genre, index) => (
                                                                 <li className='bg-[#3d3d3d] px-3 py-1 rounded-sm cursor-pointer duration-200 font-poppins hover:text-blue-400 text-white text-sm ' key={index}>{genre}</li>
-                                                            )) : ""}
+                                                            )) : (
+                                                                <Skeletons />
+                                                            )}
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -130,7 +132,7 @@ const Details = () => {
                                                 <span className='line bg-[#5a5858]  h-[1px] w-full block'></span>
                                                 <div className="px-3 py-3 ">
                                                     <ul className=" ring-1 ring-[#5a5858] rounded-sm ">
-                                                        <li className='px-3 py-[8px] hover:text-blue-400 duration-200 text-[14px] text-white'><a href={`${latest.link ? latest.link : ""}`}>{latest.chapter ? latest.chapter : ""}</a></li>
+                                                        <li className='px-3 py-[8px] hover:text-blue-400 duration-200 text-[14px] text-white'><a href={`${latest.link ? latest.link : ""}`}>{latest.chapter ? latest.chapter : "Loading..."}</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -157,8 +159,8 @@ const Details = () => {
                                                 <div className="py-5">
                                                     <div className="flex mt-2 flex-wrap gap-5 md:h-[60vh] overflow-y-scroll whitespace-nowrap  px-3 py-3 scroll-thumb">
                                                         {details.chapter_list ? details.chapter_list.map((chapter, index) => (
-                                                            <a className='px-3 py-[8px] hover:text-blue-400 cursor-pointer rounded-sm duration-200 text-[14px] text-white ring-1 w-full ring-[#5a5858]' href={`/read${chapter.endpoint}`} key={index} target="_blank" onClick={handleLatestRead}>{chapter.name}</a>
-                                                        )) : ""}
+                                                            <a className='px-3 py-[8px] hover:text-blue-400 cursor-pointer rounded-sm duration-200 text-[14px] text-white ring-1 w-full ring-[#5a5858]' href={`/watch${chapter.endpoint}`} key={index} onClick={handleLatestRead}>{chapter.name}</a>
+                                                        )) : "Loading..."}
 
                                                     </div>
                                                 </div>
@@ -250,10 +252,13 @@ const Details = () => {
                             </div>
                         </div>
                     </div>
-                    <Footer />
                 </div>
 
             </div>
+            {/* <div className="w-full absolute bottom-0 h-auto">
+                <Footer />
+
+            </div> */}
         </>
     )
 }

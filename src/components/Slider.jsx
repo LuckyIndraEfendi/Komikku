@@ -36,10 +36,10 @@ const Slider = () => {
                     className="mySwiper"
                 >
 
-                    {popular.map((item, i) => (
+                    {popular ? popular.map((item, i) => (
                         <SwiperSlide key={i}>
                             <div className="mt-[50px] md:mt-[60px]">
-                                <div className="images bg-cover w-full md:h-[90vh] h-[35vh]  bg-bottom brightness-[.7]  top-0 right-0" style={{ backgroundImage: `url(${item.image})` }}>
+                                <div className="images bg-cover w-full md:h-[90vh] h-[35vh]  bg-bottom brightness-[.7]  top-0 right-0" style={{ backgroundImage: `url(${item.image ? item.image : ""})` }}>
 
                                 </div>
                                 <div className="md:absolute md:bottom-16 md:left-10 absolute bottom-6 left-5 w-[80%] md:w-[50%] bg-[rgba(0,0,0,0.6)]  backdrop-blur-sm px-5 py-5 rounded-xl">
@@ -51,7 +51,7 @@ const Slider = () => {
                                 </div>
                             </div>
                         </SwiperSlide>
-                    ))}
+                    )) : "Loading..."}
 
 
 

@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import { getPopularComic, getPopularComic2, getRecommendedComic } from "../api/Api"
-
 export const StateContext = React.createContext();
 
 export const useGlobalContext = () => {
@@ -11,6 +10,10 @@ export const StateProvider = ({ children }) => {
 
     let arr = ["4-KOMA", "ACTION", "ADVENTURE", "COMEDY", "COOKING", "CRIME", "DEMON", "DEMONS"]
     const [active, setActive] = useState(1);
+    const [loader, setIsLoader] = useState({
+        isLogin: false,
+        isLoading: true,
+    });
     let [num, setNum] = useState(0)
     const pages = [
         { page: num + 1 },
@@ -63,8 +66,11 @@ export const StateProvider = ({ children }) => {
             const [popularData, popular2Data, recommendationData] = await Promise.all([
                 getPopularComic(1),
                 getPopularComic2(1),
-                getRecommendedComic(1)
+                getRecommendedComic(1),
+                setIsLoader({ ...loader, isLoading: false })
+
             ]);
+
 
             setPopular(popularData);
             setPopular2(popular2Data);
@@ -75,13 +81,16 @@ export const StateProvider = ({ children }) => {
 
     }, [])
 
+
+
     const handleDesc = (desc) => {
         localStorage.setItem('desc', JSON.stringify(desc))
     }
 
 
+
     return (
-        <StateContext.Provider value={{ pagess, nums, setNums, arr, pages, num, active, setActive, handlePagination, handlePagination2, popular, popular2, recomendation, actives, setNum, handleDesc }}>
+        <StateContext.Provider value={{ pagess, nums, setNums, arr, pages, num, active, setActive, handlePagination, handlePagination2, popular, popular2, recomendation, actives, setNum, handleDesc, loader }}>
             {children}
         </StateContext.Provider>
     )
