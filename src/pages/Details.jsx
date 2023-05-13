@@ -53,7 +53,12 @@ const Details = () => {
                                 <div className="grid gap-4">
                                     <div className="bg-[#222222] px-3 py-3">
                                         <div className="title mb-5">
-                                            <h1 className='text-white md:text-lg font-fira font-medium'>{details.title ? details.title : ""} Bahasa Indonesia</h1>
+                                            <h1 className='text-white md:text-lg font-fira font-medium'>{id
+                                                .split("-")
+                                                .map((word) => {
+                                                    return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase();
+                                                })
+                                                .join(" ")} Bahasa Indonesia</h1>
                                         </div>
                                         <div className="md:flex grid justify-center w-full gap-5 ">
                                             <div className="grid gap-6 justify-center ">

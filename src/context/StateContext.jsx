@@ -67,10 +67,11 @@ export const StateProvider = ({ children }) => {
                 getPopularComic(1),
                 getPopularComic2(1),
                 getRecommendedComic(1),
-                setIsLoader({ ...loader, isLoading: false })
+                setIsLoader({ ...loader, isLoading: true })
 
             ]);
 
+            setIsLoader({ ...loader, isLoading: false })
 
             setPopular(popularData);
             setPopular2(popular2Data);

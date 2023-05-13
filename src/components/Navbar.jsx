@@ -1,4 +1,4 @@
-import { FiSearch, AiFillCloseCircle, GiHamburgerMenu, IoIosLogIn, BsFillPersonPlusFill, BiShuffle, IoIosBook, FaRegQuestionCircle, FiSettings } from "../assets/Icons"
+import { FiSearch, AiFillCloseCircle, GiHamburgerMenu, IoIosLogIn, BsFillPersonPlusFill, BiShuffle, IoIosBook, FaRegQuestionCircle, FiSettings, SiGitbook, SiMdbook, BsFillBookmarksFill } from "../assets/Icons"
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState, useEffect } from 'react'
@@ -20,6 +20,7 @@ const style = {
     overflowY: "scroll ",
 };
 
+
 const Navbar = () => {
 
     const { handleDesc } = useGlobalContext()
@@ -29,30 +30,37 @@ const Navbar = () => {
     }
     const [value, setValue] = useState({
         hamburger: false,
+        setDataVal: []
     })
-    const [search2, setSearch2] = useState("")
-    const [searchData, setSearchData] = useState([])
+    const [search1, setSearch1] = useState("")
+    const [valSearch, setValSearch2] = useState("")
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log(value.search)
+        window.location.href = `/search/comic/${search1}`
     }
 
+    const handleSubmit2 = (e) => {
+        e.preventDefault()
+        window.location.href = `/search/comic/${valSearch}`
+    }
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     useEffect(() => {
         const searchComic = async () => {
             try {
-                const searchAPI = await getSearchComic(search2)
-                setSearchData(searchAPI)
+                const searchAPI = await getSearchComic(search1)
+                setValue({ ...value, setDataVal: searchAPI })
             } catch (err) {
                 console.log(err)
             }
         }
-
         searchComic()
-    }, [search2])
 
+
+    }, [search1])
 
     return (
         <>
@@ -68,7 +76,7 @@ const Navbar = () => {
                     </div>
                     <ul className='hidden md:flex sm:w-[50%] md:w-[55%] justify-between items-center '>
                         <li ><a href="/" className='text-slate-200 opacity-70 hover:opacity-100 hover:text-white cursor-pointer duration-300  text-[15px] dura font-medium relative py-2 after:duration-300 after:bg-white after:absolute after:w-0  after:left-0 after:bottom-0  after:h-[2px] after:rounded-sm hover:after:w-full'>Beranda</a></li>
-                        <li ><a href="/list" className='text-slate-200 opacity-70 hover:opacity-100 hover:text-white cursor-pointer duration-300  text-[15px] dura font-medium relative py-2 after:duration-300 after:bg-white after:absolute after:w-0  after:left-0 after:bottom-0  after:h-[2px] after:rounded-sm hover:after:w-full'>Daftar Komik</a></li>
+                        <li ><a href="/list-comic" className='text-slate-200 opacity-70 hover:opacity-100 hover:text-white cursor-pointer duration-300  text-[15px] dura font-medium relative py-2 after:duration-300 after:bg-white after:absolute after:w-0  after:left-0 after:bottom-0  after:h-[2px] after:rounded-sm hover:after:w-full'>Daftar Komik</a></li>
                         <li ><a href="/manhwa" className='text-slate-200 opacity-70 hover:opacity-100 hover:text-white cursor-pointer duration-300  text-[15px] dura font-medium relative py-2 after:duration-300 after:bg-white after:absolute after:w-0  after:left-0 after:bottom-0  after:h-[2px] after:rounded-sm hover:after:w-full'>Manhwa</a></li>
                         <li ><a href="/manhua" className='text-slate-200 opacity-70 hover:opacity-100 hover:text-white cursor-pointer duration-300  text-[15px] dura font-medium relative py-2 after:duration-300 after:bg-white after:absolute after:w-0  after:left-0 after:bottom-0  after:h-[2px] after:rounded-sm hover:after:w-full'>Manhua</a></li>
                         <li ><a href="/bookmark" className='text-slate-200 opacity-70 hover:opacity-100 hover:text-white cursor-pointer duration-300  text-[15px] dura font-medium relative py-2 after:duration-300 after:bg-white after:absolute after:w-0  after:left-0 after:bottom-0  after:h-[2px] after:rounded-sm hover:after:w-full'>Bookmark</a></li>
@@ -85,25 +93,26 @@ const Navbar = () => {
 
                     >
                         <Box sx={style} >
-                            <form action="" className="relative ">
-                                <input type="text" value={search2} className='w-full px-16 border-2 border-gray-200 rounded-full  py-2 focus:outline-none focus:border-blue-400' placeholder='Cari Komik atau Manga' onChange={(e) => setSearch2(e.target.value)} />
+                            <form action="" className="relative " onSubmit={handleSubmit}>
+                                <input type="text" className='w-full px-16 border-2 border-gray-200 rounded-full  py-2 focus:outline-none focus:border-blue-400' placeholder='Cari Komik atau Manga' onChange={(e) => setSearch1(e.target.value)} />
                                 <button className="absolute left-5 top-[12px]  text-blue-500 text-xl"><FiSearch /></button>
                             </form>
 
                             <div className="mt-3">
                                 <div className="flex flex-col gap-5 overflow-hidden scroll-thumb px-2 ">
-                                    {searchData ? searchData.map((item, i) => (
-                                        <a href={`/details${item.endpoint}`} className="group" key={i} onClick={() => handleDesc(item.desc)}>
-                                            <div className="images flex gap-5">
-                                                <img src={`${item.image}`} alt="" width={150} />
-                                                <div className="py-1">
-                                                    <h1 className="text-gray-900 font-medium text-lg group-hover:text-blue-700">{item.title}</h1>
-                                                    <p className="text-sm mt-2 text-gray-700 group-hover:text-gray-500">{item.desc}</p>
+                                    {
+                                        value.setDataVal ? value.setDataVal.data ? value.setDataVal.data.map((item, i) => (
+                                            <a href={`/details${item.endpoint}`} className="group" key={i} onClick={() => handleDesc(item.desc)}>
+                                                <div className="images flex gap-5">
+                                                    <img src={`${item.image}`} alt="" width={150} />
+                                                    <div className="py-1">
+                                                        <h1 className="text-gray-900 font-medium text-lg group-hover:text-blue-700">{item.title}</h1>
+                                                        <p className="text-sm mt-2 text-gray-700 group-hover:text-gray-500">{item.desc}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    )) : "Loading..."}
-
+                                            </a>
+                                        )) : "" : "Loading..."
+                                    }
                                 </div>
                             </div>
                         </Box>
@@ -113,7 +122,7 @@ const Navbar = () => {
                         <img src="https://tse2.mm.bing.net/th?id=OIP.bNQ8Br0pibM1YAp3FmvOqAHaHa&pid=Api&P=0" alt="" width="40px" className='rounded-full ring-1 ring-gray-200' />
                     </div>
                     <div className="flex items-center gap-4 md:hidden">
-                        <form action="" className="absolute  right-0 w-full px-2  " onSubmit={handleSubmit}>
+                        <form action="" className="absolute  right-0 w-full px-2  " onSubmit={handleSubmit2}>
                             <div className={`${search ? 'block' : "hidden"} relative`}>
                                 <div className='absolute top-[10px] left-4 flex items-center'>
                                     <FiSearch className='text-gray-500' />
@@ -121,7 +130,7 @@ const Navbar = () => {
                                 <div className="close absolute right-3 top-[10px] cursor-pointer " onClick={() => setSearch(false)}>
                                     <AiFillCloseCircle className='text-red-500' />
                                 </div>
-                                <input type="text" placeholder="Cari Komik" className='text-sm bg-gray-200 px-10 py-2 rounded-full w-full outline-none focus:ring-1 ring-slate-600 duration-100' onChange={(e) => setValue({ ...value, search: e.target.value })} />
+                                <input type="text" placeholder="Cari Komik" className='text-sm bg-gray-200 px-10 py-2 rounded-full w-full outline-none focus:ring-1 ring-slate-600 duration-100' onChange={(e) => setValSearch2(e.target.value)} />
                             </div>
                         </form>
                         <div className={`${search ? "hidden" : 'search block '} md:hidden`} onClick={handleSearch}>
@@ -130,7 +139,7 @@ const Navbar = () => {
                             </div>
                         </div>
                         <div className={`${search ? "hidden" : 'profile block'}`}>
-                            <div className="account" onClick={() => setValue({ ...value, hamburger: false })}>
+                            <div className="account" >
                                 <img src="https://tse2.mm.bing.net/th?id=OIP.bNQ8Br0pibM1YAp3FmvOqAHaHa&pid=Api&P=0" alt="" width="40px" className='rounded-full ring-1 ring-gray-200' />
                             </div>
                         </div>
@@ -153,10 +162,12 @@ const Navbar = () => {
                     <div className="px-10 py-3">
                         <h1 className='text-[#949494]  font-medium'>General</h1>
                         <div className="flex flex-col gap-6 mt-4">
-                            <h1 className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><GiHamburgerMenu size={20} /> <span>Browser</span></h1>
-                            <h1 className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><IoIosBook size={20} /> <span>Genre</span></h1>
-                            <h1 className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><BiShuffle size={20} /> <span>Random</span></h1>
-
+                            <a href="/" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><GiHamburgerMenu size={20} /> <span>Browser</span></a>
+                            <a href="/list-comic" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><IoIosBook size={20} /> <span>Daftar Komik</span></a>
+                            <a href="/manhwa" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><SiGitbook size={20} /> <span>Manhwa</span></a>
+                            <a href="/manhua" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><SiMdbook size={20} /> <span>Manhua</span></a>
+                            <a href="/bookmark" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><BsFillBookmarksFill size={20} /> <span>Boomark</span></a>
+                            <a href="/random" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><BiShuffle size={20} /> <span>Random</span></a>
                         </div>
                     </div>
 
@@ -167,8 +178,9 @@ const Navbar = () => {
                             <h1 className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><FiSettings size={19} /> <span>Setting</span></h1>
                         </div>
                     </div>
-
-
+                    <div className="px-3">
+                        <button className="mt-5  px-2 py-1 bg-red-600 w-full rounded-md text-white" onClick={() => setValue({ ...value, hamburger: false })}>Close</button>
+                    </div>
                 </div>
             </div>
         </>
