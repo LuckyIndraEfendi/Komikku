@@ -22,6 +22,7 @@ const Details = () => {
                 console.log(err)
             }
         }
+        JSON.stringify(localStorage.setItem("chapter", id))
         detailComic()
         const desc = JSON.parse(localStorage.getItem('desc'))
         setDesc(desc)

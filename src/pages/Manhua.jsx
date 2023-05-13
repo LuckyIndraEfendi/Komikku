@@ -4,8 +4,7 @@ import { getManhua } from '../api/Api'
 import { useGlobalContext } from '../context/StateContext'
 import Skeletons from '../lib/Skeletons'
 import {
-    IoMdColorPalette, AiFillFire, FcNext,
-    FcPrevious
+    IoMdColorPalette, AiFillFire,
 } from "../assets/Icons"
 const manhua = () => {
     const { handleDesc } = useGlobalContext()
@@ -42,7 +41,6 @@ const manhua = () => {
                             </div>
                             <div className="bg-[#222222] px-3 py-4">
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-
                                     {value.isLoading ? (
                                         <Skeletons />
                                     ) : (
@@ -60,21 +58,6 @@ const manhua = () => {
                                     )}
                                 </div>
 
-
-                                <div className="pagination">
-                                    <div className="flex gap-1 justify-center py-4">
-                                        <div className="prev mr-1">
-                                            <button className='px-3 text-sm py-2 bg-[#353536] text-white rounded-md rounded-r-lg ' onClick={() => setNum((prev) => prev > 0 ? num - 1 : 0)}><FcPrevious /></button>
-                                        </div>
-                                        {pages ? pages.map((item, i) => (
-                                            <button className={`px-3 text-sm py-1 rounded-md text-white ${active == item.page ? "bg-[#2693e6]" : "bg-[#353536]"}`} key={i} onClick={() => handlePagination(item)}>{item.page}</button>
-                                        )) : ""}
-
-                                        <div className="next ml-1">
-                                            <button className='px-3 text-sm py-2 bg-[#353536] text-white rounded-md rounded-r-lg ' onClick={() => setNum((next) => next < 6 ? num + 1 : 6)}><FcNext /></button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 

@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import Footer from '../components/Footer'
 import {
-    IoMdColorPalette, AiFillFire, FcNext,
-    FcPrevious
+    IoMdColorPalette, AiFillFire,
 } from "../assets/Icons"
 import { getManhwa } from '../api/Api'
 import { useGlobalContext } from '../context/StateContext'

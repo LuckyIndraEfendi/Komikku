@@ -63,11 +63,11 @@ export const StateProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoader({ ...loader, isLoading: true })
             const [popularData, popular2Data, recommendationData] = await Promise.all([
                 getPopularComic(1),
                 getPopularComic2(1),
                 getRecommendedComic(1),
-                setIsLoader({ ...loader, isLoading: true })
 
             ]);
 

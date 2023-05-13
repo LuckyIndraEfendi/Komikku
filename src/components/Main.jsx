@@ -1,3 +1,4 @@
+import { useState } from "react"
 import {
     IoMdColorPalette, AiFillFire, FcNext,
     FcPrevious
@@ -8,7 +9,7 @@ import Skeletons from "../lib/Skeletons"
 
 const Main = () => {
     const { pagess, nums, setNums, arr, pages, num, active, handlePagination, handlePagination2, popular, popular2, recomendation, actives, setNum, handleDesc } = useGlobalContext()
-
+    const [isLoading, setIsLoading] = useState(false)
     return (
         <>
 
@@ -208,7 +209,7 @@ const Main = () => {
                                         <span className='line bg-[#5a5858]  h-[1px] w-full block'></span>
                                         <div className="likeFanpage px-3 py-3 ">
                                             <div className="flex justify-center">
-                                                <a href="https://trakteer.id/lucky-indra-efendi-lpwhg" target="_blank"><img id="wse-buttons-preview" src="https://cdn.trakteer.id/images/embed/trbtn-red-5.png" height="30" alt="Trakteer Saya" className='h-[40px] border-none
+                                                <a href="https://trakteer.id/lucky-indra-efendi-lpwhg" target="_blank" rel="noreferrer"><img id="wse-buttons-preview" src="https://cdn.trakteer.id/images/embed/trbtn-red-5.png" height="30" alt="Trakteer Saya" className='h-[40px] border-none
                                             ' /></a>
                                             </div>
                                         </div>

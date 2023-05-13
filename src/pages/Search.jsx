@@ -3,8 +3,9 @@ import { IoMdColorPalette, AiFillFire } from "../assets/Icons"
 import { useState, useEffect } from "react"
 import { getSearchComic } from "../api/Api"
 import Footer from "../components/Footer"
-
+import { useGlobalContext } from "../context/StateContext"
 const Search = () => {
+    const { handleDesc } = useGlobalContext()
     const { searchName } = useParams()
     const [search, setSearchData] = useState([])
     const [loading, setLoading] = useState(false);
