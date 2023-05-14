@@ -1,16 +1,9 @@
 import Navbar from './components/Navbar'
-import Dashboard from "./pages/Dashboard"
-import Details from './pages/Details'
-import Watch from './pages/Watch'
-import Search from './pages/Search'
-import Manhua from './pages/Manhua'
-import Manhwa from './pages/Manhwa'
-import DaftarComic from './pages/DaftarComic'
+import { DaftarComic, Dashboard, Details, Manhwa, Manhua, Search, Watch } from './pages'
 import Arknight from "./assets/loader/arknights-error.gif"
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useGlobalContext } from './context/StateContext'
 function App() {
-
   const { loader } = useGlobalContext()
   return (
     <BrowserRouter>
@@ -31,14 +24,9 @@ function App() {
             <Route path='/manhwa' element={<Manhwa />}></Route>
             <Route path='/list-comic' element={<DaftarComic />}></Route>
             <Route path='/search/comic/:searchName' element={<Search />}></Route>
-
-
           </Routes>
         </>
       )}
-
-
-
     </BrowserRouter>
 
   )

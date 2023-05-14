@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import Footer from '../components/Footer'
 import { IoMdColorPalette, AiFillFire } from "../assets/Icons"
 import { useGlobalContext } from "../context/StateContext"
-import Skeletons from '../lib/Skeletons'
+import Skeleton from 'react-loading-skeleton'
 import { useParams } from "react-router-dom"
 import { getDetailComic } from "../api/Api"
 
@@ -23,11 +23,11 @@ const Details = () => {
             }
         }
         JSON.stringify(localStorage.setItem("chapter", id))
-        detailComic()
         const desc = JSON.parse(localStorage.getItem('desc'))
         setDesc(desc)
         let datas = JSON.parse(localStorage.getItem('latestRead'))
         setlatest(datas)
+        detailComic()
     }, [])
 
 
@@ -71,10 +71,21 @@ const Details = () => {
                                                 <div className="mt-3 flex gap-3">
                                                     {details.chapter_list ? details.chapter_list.slice(-1).map((chapter, i) => (
                                                         <a href={`/watch${chapter.endpoint}`}><button className='bg-[#363636] py-1 px-3 rounded-md shadow-md shadow-gray-800  text-white' key={i}><span className='text-sm'>First :</span> <strong>{chapter.name}</strong></button></a>
-                                                    )) : "Loading..."}
+                                                    )) : (
+                                                        <span className="text-white">Loading...</span>
+                                                    )}
                                                     {details.chapter_list ? details.chapter_list.slice(0, 1).map((chapter, i) => (
-                                                        <a href={`/watch${chapter.endpoint}`}><button className='bg-[#363636] py-1 px-3 rounded-md shadow-md shadow-gray-800  text-white' key={i}><span className='text-sm'>Last :</span> <strong>{chapter.name}</strong></button></a>
-                                                    )) : "Loading..."}
+                                                        <a href={`/watch${chapter.endpoint}`} key={i}>
+                                                            <button className='bg-[#363636] py-1 px-3 rounded-md shadow-md shadow-gray-800  text-white'>
+                                                                <span className='text-sm'>Last :</span> <strong>{chapter.name}</strong>
+                                                            </button>
+                                                        </a>
+                                                    )) : (
+                                                        <span className="text-white">Loading ...</span>
+                                                    )}
+
+
+
                                                 </div>
                                                 <div className="">
                                                     <div className="table">
@@ -120,7 +131,7 @@ const Details = () => {
                                                             {details.genre ? details.genre.map((genre, index) => (
                                                                 <li className='bg-[#3d3d3d] px-3 py-1 rounded-sm cursor-pointer duration-200 font-poppins hover:text-blue-400 text-white text-sm ' key={index}>{genre}</li>
                                                             )) : (
-                                                                <Skeletons />
+                                                                <Skeleton />
                                                             )}
                                                         </ul>
                                                     </div>
@@ -138,7 +149,7 @@ const Details = () => {
                                                 <span className='line bg-[#5a5858]  h-[1px] w-full block'></span>
                                                 <div className="px-3 py-3 ">
                                                     <ul className=" ring-1 ring-[#5a5858] rounded-sm ">
-                                                        <li className='px-3 py-[8px] hover:text-blue-400 duration-200 text-[14px] text-white'><a href={`${latest.link ? latest.link : ""}`}>{latest.chapter ? latest.chapter : "Loading..."}</a></li>
+                                                        <li className='px-3 py-[8px] hover:text-blue-400 duration-200 text-[14px] text-white'><a href={`${latest ? latest.link : ""}`}>{latest ? latest.chapter : "Tidak ada Riwayat Baca"}</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -166,7 +177,9 @@ const Details = () => {
                                                     <div className="flex mt-2 flex-wrap gap-5 md:h-[60vh] overflow-y-scroll whitespace-nowrap  px-3 py-3 scroll-thumb">
                                                         {details.chapter_list ? details.chapter_list.map((chapter, index) => (
                                                             <a className='px-3 py-[8px] hover:text-blue-400 cursor-pointer rounded-sm duration-200 text-[14px] text-white ring-1 w-full ring-[#5a5858]' href={`/watch${chapter.endpoint}`} key={index} onClick={handleLatestRead}>{chapter.name}</a>
-                                                        )) : "Loading..."}
+                                                        )) : (
+                                                            <span className="text-white">Loading...</span>
+                                                        )}
 
                                                     </div>
                                                 </div>
@@ -199,7 +212,7 @@ const Details = () => {
                                                     </a>
                                                 ))
                                             ) : (
-                                                <Skeletons />
+                                                <Skeleton />
                                             )}
                                         </div>
                                     </div>
@@ -260,10 +273,9 @@ const Details = () => {
                     </div>
                 </div>
 
-            </div>
+            </div >
             {/* <div className="w-full absolute bottom-0 h-auto">
                 <Footer />
-
             </div> */}
         </>
     )
