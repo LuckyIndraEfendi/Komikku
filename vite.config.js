@@ -14,14 +14,4 @@ export default defineConfig({
     },
     cors: true,
   },
-  build: {
-    outDir: "dist",
-    assetsDir: "",
-    emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        main: "./index.html",
-      },
-    },
-  },
 });

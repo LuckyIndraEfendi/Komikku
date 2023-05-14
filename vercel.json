@@ -1,0 +1,32 @@
+{
+    "routes": [
+        {
+            "src": "/",
+            "dest": "/index.html"
+        },
+        {
+            "src": "/details/manga/:id",
+            "dest": "/index.html"
+        },
+        {
+            "src": "/watch/ch/:name",
+            "dest": "/index.html"
+        },
+        {
+            "src": "/manhua",
+            "dest": "/index.html"
+        },
+        {
+            "src": "/manhwa",
+            "dest": "/index.html"
+        },
+        {
+            "src": "/list-comic",
+            "dest": "/index.html"
+        },
+        {
+            "src": "/search/comic/:searchName",
+            "dest": "/index.html"
+        }
+    ]
+}
