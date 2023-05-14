@@ -1,5 +1,5 @@
 import { FiSearch, FiSettings } from "react-icons/fi";
-import { AiFillCloseCircle, AiFillFire } from "react-icons/ai";
+import { AiFillCloseCircle, AiFillFire, AiOutlineMail } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosLogIn, IoIosBook, IoMdColorPalette } from "react-icons/io";
 import {
@@ -8,11 +8,12 @@ import {
   BsFillBookmarksFill,
   BsBookmark,
 } from "react-icons/bs";
-import { BiShuffle } from "react-icons/bi";
-import { FaRegQuestionCircle } from "react-icons/fa";
+import { BiShuffle, BiLogOut } from "react-icons/bi";
+import { FaRegQuestionCircle, FaUserAlt, FaGoogle } from "react-icons/fa";
 import { GrRefresh } from "react-icons/gr";
-import { FcPrevious, FcNext } from "react-icons/fc";
+import { FcPrevious, FcNext, FcGoogle } from "react-icons/fc";
 import { SiGitbook, SiMdbook } from "react-icons/si";
+
 export {
   FiSearch,
   AiFillCloseCircle,
@@ -33,4 +34,9 @@ export {
   SiGitbook,
   SiMdbook,
   BsBookmark,
+  FcGoogle,
+  FaUserAlt,
+  AiOutlineMail,
+  FaGoogle,
+  BiLogOut,
 };

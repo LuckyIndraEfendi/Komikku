@@ -176,7 +176,7 @@ const Details = () => {
                                                 <div className="py-5">
                                                     <div className="flex mt-2 flex-wrap gap-5 md:h-[60vh] overflow-y-scroll whitespace-nowrap  px-3 py-3 scroll-thumb">
                                                         {details.chapter_list ? details.chapter_list.map((chapter, index) => (
-                                                            <a className='px-3 py-[8px] hover:text-blue-400 cursor-pointer rounded-sm duration-200 text-[14px] text-white ring-1 w-full ring-[#5a5858]' href={`/watch${chapter.endpoint}`} key={index} onClick={handleLatestRead}>{chapter.name}</a>
+                                                            <a className='px-3 py-[8px] hover:text-blue-400 cursor-pointer items-center flex rounded-sm duration-200 text-[14px] text-white ring-1 w-full ring-[#5a5858]' href={`/watch${chapter.endpoint}`} key={index} onClick={handleLatestRead}>{chapter.name}</a>
                                                         )) : (
                                                             <span className="text-white">Loading...</span>
                                                         )}
@@ -198,7 +198,7 @@ const Details = () => {
                                             </div>
                                         </div>
 
-                                        <div className="px-3 bg-[#222222] py-3 grid grid-cols-3 md:grid-cols-5 gap-5">
+                                        <div className="px-3 bg-[#222222] py-3 grid grid-cols-2 md:grid-cols-5 gap-5">
                                             {recomendation ? (
                                                 recomendation.slice(0, 5).map((item, index) => (
                                                     <a href={`/details${item.endpoint}`} key={index} onClick={() => handleDesc(item.desc)} >
@@ -216,11 +216,7 @@ const Details = () => {
                                             )}
                                         </div>
                                     </div>
-
                                 </div>
-
-
-
                             </div>
 
                             <div className=" md:col-span-2">
@@ -274,9 +270,7 @@ const Details = () => {
                 </div>
 
             </div >
-            {/* <div className="w-full absolute bottom-0 h-auto">
-                <Footer />
-            </div> */}
+
         </>
     )
 }

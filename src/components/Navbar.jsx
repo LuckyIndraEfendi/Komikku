@@ -1,9 +1,11 @@
-import { FiSearch, AiFillCloseCircle, GiHamburgerMenu, IoIosLogIn, BsFillPersonPlusFill, BiShuffle, IoIosBook, FaRegQuestionCircle, FiSettings, SiGitbook, SiMdbook, BsFillBookmarksFill } from "../assets/Icons"
+import { FiSearch, AiFillCloseCircle, FaUserAlt, GiHamburgerMenu, IoIosLogIn, BiLogOut, BsFillPersonPlusFill, BiShuffle, IoIosBook, FaRegQuestionCircle, FiSettings, SiGitbook, SiMdbook, BsFillBookmarksFill } from "../assets/Icons"
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState, useEffect } from 'react'
 import { getSearchComic } from "../api/Api";
 import { useGlobalContext } from "../context/StateContext";
+import { useAuthContext } from "../context/AuthContext";
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -22,7 +24,7 @@ const style = {
 
 
 const Navbar = () => {
-
+    const { isLogin, handleLogout } = useAuthContext()
     const { handleDesc } = useGlobalContext()
     const [search, setSearch] = useState(false)
     const handleSearch = () => {
@@ -46,6 +48,7 @@ const Navbar = () => {
         window.location.href = `/search/comic/${valSearch}`
     }
     const [open, setOpen] = useState(false);
+    const [isUser, setIsUser] = useState("")
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     useEffect(() => {
@@ -58,9 +61,11 @@ const Navbar = () => {
             }
         }
         searchComic()
-
-
     }, [search1])
+
+    useEffect(() => {
+        localStorage.getItem('user') && setIsUser(JSON.parse(localStorage.getItem('user')))
+    }, [])
 
     return (
         <>
@@ -118,8 +123,22 @@ const Navbar = () => {
                         </Box>
                     </Modal>
 
-                    <div className=' items-center hidden md:flex'>
-                        <img src="https://tse2.mm.bing.net/th?id=OIP.bNQ8Br0pibM1YAp3FmvOqAHaHa&pid=Api&P=0" alt="" width="40px" className='rounded-full ring-1 ring-gray-200' />
+                    <div className=' items-center hidden md:flex gap-2'>
+                        {isLogin ? (
+                            <>
+                                {isUser.photoURL ? (
+                                    <img src={`${isUser.photoURL ? isUser.photoURL : ""}`} alt="" className=" w-12 rounded-full" />
+                                ) : (
+                                    <h1 className="text-white">{isUser.displayName}</h1>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                <button className="bg-red-500 py-2 px-3 rounded-md text-sm text-white shadow-sm shadow-gray-500 font-fira font-medium">Login</button>
+                                <button className="bg-yellow-500 py-2 px-3 rounded-md text-sm text-white shadow-sm shadow-gray-500 font-fira font-medium">Register</button>
+                            </>
+                        )}
+
                     </div>
                     <div className="flex items-center gap-4 md:hidden">
                         <form action="" className="absolute  right-0 w-full px-2  " onSubmit={handleSubmit2}>
@@ -140,7 +159,20 @@ const Navbar = () => {
                         </div>
                         <div className={`${search ? "hidden" : 'profile block'}`}>
                             <div className="account" >
-                                <img src="https://tse2.mm.bing.net/th?id=OIP.bNQ8Br0pibM1YAp3FmvOqAHaHa&pid=Api&P=0" alt="" width="40px" className='rounded-full ring-1 ring-gray-200' />
+                                {isLogin ? (
+                                    <>
+                                        {isUser.photoURL ? (
+                                            <img src={`${isUser.photoURL ? isUser.photoURL : "https://cdn-icons-png.flaticon.com/128/456/456212.png"}`} alt="" className=" w-12 rounded-full" />
+
+                                        ) : (
+                                            <h1 className="text-white font-medium text-base">{isUser.displayName || isUser.email ? isUser.email.replace('@gmail.com', '') : ""}</h1>
+                                        )}
+                                    </>
+                                ) : (
+                                    <>
+                                        <button className="bg-red-500 py-2 px-3 rounded-md text-sm  text-white shadow-sm shadow-gray-500 font-fira font-medium">Login</button>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -154,35 +186,51 @@ const Navbar = () => {
                     </div>
                     <div className="px-10 py-5">
                         <div className="flex flex-col gap-4">
-                            <h1 className='flex items-center text-sm  gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><IoIosLogIn size={20} /> <span>Login</span></h1>
-                            <h1 className='flex items-center  text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><BsFillPersonPlusFill size={20} /> <span>Register</span></h1>
+                            {
+                                isLogin ? (
+                                    <a href="/account" className='flex items-center  text-base mt-5 gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><FaUserAlt size={20} /> <span>Account</span></a>
+                                ) : (
+                                    <>
+                                        <a href="/login" className='flex items-center text-sm  gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><IoIosLogIn size={20} /> <span>Login</span></a>
+                                        <a href="/register" className='flex items-center  text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><BsFillPersonPlusFill size={20} /> <span>Register</span></a>
+                                    </>
+                                )
+                            }
+
                         </div>
                     </div>
 
-                    <div className="px-10 py-3">
-                        <h1 className='text-[#949494]  font-medium'>General</h1>
-                        <div className="flex flex-col gap-6 mt-4">
-                            <a href="/" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><GiHamburgerMenu size={20} /> <span>Browser</span></a>
-                            <a href="/list-comic" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><IoIosBook size={20} /> <span>Daftar Komik</span></a>
-                            <a href="/manhwa" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><SiGitbook size={20} /> <span>Manhwa</span></a>
-                            <a href="/manhua" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><SiMdbook size={20} /> <span>Manhua</span></a>
-                            <a href="/bookmark" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><BsFillBookmarksFill size={20} /> <span>Boomark</span></a>
-                            <a href="/random" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><BiShuffle size={20} /> <span>Random</span></a>
-                        </div>
-                    </div>
+                    {isLogin ? (
+                        <>
+                            <div className="px-10 py-3">
+                                <h1 className='text-[#949494]  font-medium'>General</h1>
+                                <div className="flex flex-col gap-6 mt-4">
+                                    <a href="/" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><GiHamburgerMenu size={20} /> <span>Browser</span></a>
+                                    <a href="/list-comic" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><IoIosBook size={20} /> <span>Daftar Komik</span></a>
+                                    <a href="/manhwa" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><SiGitbook size={20} /> <span>Manhwa</span></a>
+                                    <a href="/manhua" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><SiMdbook size={20} /> <span>Manhua</span></a>
+                                    <a href="/bookmark" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><BsFillBookmarksFill size={20} /> <span>Boomark</span></a>
+                                    <a href="/random" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><BiShuffle size={20} /> <span>Random</span></a>
+                                </div>
+                            </div>
 
-                    <div className="px-10 py-3">
-                        <h1 className='text-[#949494]  font-medium'>Other</h1>
-                        <div className="flex flex-col gap-4  mt-4">
-                            <h1 className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><FaRegQuestionCircle size={19} /> <span>FAQ</span></h1>
-                            <h1 className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><FiSettings size={19} /> <span>Setting</span></h1>
-                        </div>
-                    </div>
+                            <div className="px-10 py-3">
+                                <h1 className='text-[#949494]  font-medium'>Other</h1>
+                                <div className="flex flex-col gap-4  mt-4">
+                                    <a href="/" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><FaRegQuestionCircle size={19} /> <span>FAQ</span></a>
+                                    <a href="/setting" className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]'><FiSettings size={19} /> <span>Setting</span></a>
+                                    <a className='flex items-center text-sm gap-4 hover:text-[#e0095c] cursor-pointer text-[#949494]' onClick={handleLogout} ><BiLogOut size={19} /> <span>LogOut</span></a>
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <></>
+                    )}
                     <div className="px-3">
                         <button className="mt-5  px-2 py-1 bg-red-600 w-full rounded-md text-white" onClick={() => setValue({ ...value, hamburger: false })}>Close</button>
                     </div>
-                </div>
-            </div>
+                </div >
+            </div >
         </>
     )
 }

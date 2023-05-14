@@ -1,1 +1,2 @@
-export const baseURL = "https://komiku-api.fly.dev/api/comic";
+export const baseURL =
+  "https://komikku-rest-api-production.up.railway.app/api/comic";

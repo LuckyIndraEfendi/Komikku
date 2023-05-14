@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react'
 import Footer from '../components/Footer'
 import { getManhua } from '../api/Api'
-import { useGlobalContext } from '../context/StateContext'
 import Skeletons from '../lib/Skeletons'
 import {
     IoMdColorPalette, AiFillFire,
 } from "../assets/Icons"
 const manhua = () => {
-    const { handleDesc } = useGlobalContext()
     const [value, setValue] = useState({
         isLoading: false,
         setManhua: []
@@ -20,14 +18,6 @@ const manhua = () => {
         }
         getManhuaComic()
     }, [])
-    const [active, setActive] = useState(1);
-    let [num, setNum] = useState(0)
-    const pages = [
-        { page: num + 1 },
-        { page: num + 2 },
-        { page: num + 3 },
-        { page: num + 4 },
-    ]
 
     return (
         <>
@@ -44,8 +34,8 @@ const manhua = () => {
                                     {value.isLoading ? (
                                         <Skeletons />
                                     ) : (
-                                        value.setManhua && value.setManhua.map((manhua, i) => (
-                                            <a href={`/details${manhua.endpoint}`} key={i} onClick={() => handleDesc(manhua.desc)}>
+                                        value.setManhua && value.setManhua.slice(0, 50).map((manhua, i) => (
+                                            <a href={`/details${manhua.endpoint}`} key={i} >
                                                 <div className="group cursor-pointer">
                                                     <div className="image bg-cover bg-no-repeat h-[18vh] duration-200  md:h-[30vh] rounded-md relative bg-blend-darken  bg-top group-hover:opacity-80 " style={{ backgroundImage: `url(${manhua.image})` }}>
                                                         <button className='bottom-2 absolute left-2 bg-yellow-400 px-2 py-1 uppercase text-[11px] flex manhuas-center gap-[2px] rounded-md font-bold font-fira'> <IoMdColorPalette size={15} /> <span >Warna</span></button>

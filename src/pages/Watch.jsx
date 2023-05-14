@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getChapters, getDetailComic } from '../api/Api'
+import { useNavigate } from 'react-router-dom'
 import Footer from "../components/Footer"
-
 const Watch = () => {
+    const navigate = useNavigate()
     const { name } = useParams()
     const [value, setValue] = useState([])
     const [chapter, setChapter] = useState([])
@@ -27,14 +28,14 @@ const Watch = () => {
     }, [])
 
     const handleChapter = (e) => {
-        window.location.href = `/watch${e.target.value}`
+        navigate(`/watch${e.target.value}`)
+        setValue(e.target.value)
     }
 
     return (
         <>
             <div className="w-full flex flex-col gap-5">
                 <div className="w-[95%] md:w-[90%] m-auto top-32 relative">
-
                     <div className="">
                         <div className="flex justify-center flex-col gap-1">
                             <h1 className='text-white text-center text-base md:text-xl font-bold font-fira'>Komik {id.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())}</h1>
@@ -57,7 +58,7 @@ const Watch = () => {
                     <div className="flex justify-between px-4 mt-4">
                         <div className="">
                             <div className="relative inline-flex">
-                                <select className="border border-gray-300 text-white rounded-full py-1 px-4 text-sm bg-[#222222] hover:border-gray-400 focus:outline-none appearance-none" onClick={handleChapter}>
+                                <select className="border border-gray-300 text-white flex gap-4 rounded-full py-1 px-4 text-sm bg-[#222222] hover:border-gray-400 focus:outline-none appearance-none" onChange={handleChapter}>
                                     {chapter.chapter_list ? chapter.chapter_list.map((ress, i) => (
                                         <option value={ress.endpoint} key={i} >{ress.name}
                                         </option>

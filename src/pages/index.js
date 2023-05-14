@@ -5,5 +5,17 @@ import Manhwa from "./Manhwa";
 import Manhua from "./Manhua";
 import Search from "./Search";
 import Watch from "./Watch";
+import Login from "./Login";
+import Register from "./Register";
 
-export { DaftarComic, Dashboard, Details, Manhwa, Manhua, Search, Watch };
+export {
+  DaftarComic,
+  Dashboard,
+  Details,
+  Manhwa,
+  Manhua,
+  Search,
+  Watch,
+  Login,
+  Register,
+};

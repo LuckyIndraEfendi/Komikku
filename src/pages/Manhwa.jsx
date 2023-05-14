@@ -36,8 +36,8 @@ const Manhwa = () => {
                                     {value.isLoading ? (
                                         <Skeletons />
                                     ) : (
-                                        value.setManhwa && value.setManhwa.map((manhwa, i) => (
-                                            <a href={`/details${manhwa.endpoint}`} key={i} onClick={() => handleDesc(manhwa.desc)}>
+                                        value.setManhwa && value.setManhwa.slice(0, 20).map((manhwa, i) => (
+                                            <a href={`/details${manhwa.endpoint}`} key={i} >
                                                 <div className="group cursor-pointer">
                                                     <div className="image bg-cover bg-no-repeat h-[18vh] duration-200  md:h-[30vh] rounded-md relative bg-blend-darken  bg-top group-hover:opacity-80 " style={{ backgroundImage: `url(${manhwa.image})` }}>
                                                         <button className='bottom-2 absolute left-2 bg-yellow-400 px-2 py-1 uppercase text-[11px] flex manhuas-center gap-[2px] rounded-md font-bold font-fira'> <IoMdColorPalette size={15} /> <span >Warna</span></button>

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { getPopularComic, getPopularComic2, getRecommendedComic } from "../api/Api"
+
 export const StateContext = React.createContext();
 
 export const useGlobalContext = () => {
@@ -14,6 +15,9 @@ export const StateProvider = ({ children }) => {
         isLogin: false,
         isLoading: true,
     });
+
+
+
     let [num, setNum] = useState(0)
     const pages = [
         { page: num + 1 },
@@ -39,7 +43,6 @@ export const StateProvider = ({ children }) => {
     const [actives, setActives] = useState(1);
 
 
-
     const handlePagination2 = (item) => {
         setActives(item.page)
 
@@ -55,9 +58,11 @@ export const StateProvider = ({ children }) => {
         setActive(item.page)
 
         const popular2 = async () => {
+            setIsLoader({ ...loader, isLoading: true })
             const data = await getPopularComic2(item.page)
             setPopular2(data)
         }
+        setIsLoader({ ...loader, isLoading: false })
         popular2()
     }
 

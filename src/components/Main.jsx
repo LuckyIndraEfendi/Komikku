@@ -9,7 +9,6 @@ import Skeletons from "../lib/Skeletons"
 
 const Main = () => {
     const { pagess, nums, setNums, arr, pages, num, active, handlePagination, handlePagination2, popular, popular2, recomendation, actives, setNum, handleDesc } = useGlobalContext()
-    const [isLoading, setIsLoading] = useState(false)
     return (
         <>
 
@@ -41,7 +40,7 @@ const Main = () => {
                                     </div>
                                 </div>
                                 <div className="bg-[#2e2d2d]">
-                                    <div className="content grid grid-cols-3 md:grid-cols-5 py-6 px-2 md:px-4 gap-4 ">
+                                    <div className="content grid grid-cols-2 md:grid-cols-5 py-6 px-2 md:px-4 gap-4 ">
                                         {popular ? popular.map((item, i) => (
                                             <a href={`/details${item.endpoint}`} key={i} onClick={() => handleDesc(item.desc)}>
                                                 <div className="group cursor-pointer">
@@ -91,7 +90,7 @@ const Main = () => {
 
                                 <div className="bg-[#2e2d2d]">
                                     {popular2 ? (
-                                        <div className="grid grid-cols-3 sm:grid-cols-3  md:grid-cols-5  gap-5  rounded-sm py-4 px-3">
+                                        <div className="grid grid-cols-2 sm:grid-cols-3  md:grid-cols-5  gap-5  rounded-sm py-4 px-3">
                                             {popular2 ? popular2.map((item, i) => (
                                                 <a href={`/details${item.endpoint}`} key={i} onClick={() => handleDesc(item.desc)}>
                                                     <div className="group cursor-pointer">
@@ -145,7 +144,7 @@ const Main = () => {
                                 <div className="bg-[#2e2d2d]">
 
                                     {recomendation ? (
-                                        <div className="grid grid-cols-3 sm:grid-cols-3  md:grid-cols-5  gap-5  rounded-sm py-4 px-3">
+                                        <div className="grid grid-cols-2 sm:grid-cols-3  md:grid-cols-5  gap-5  rounded-sm py-4 px-3">
                                             {recomendation ? recomendation.map((item, i) => (
                                                 <a href={`/details${item.endpoint}`} key={i} onClick={() => handleDesc(item.desc)}>
                                                     <div className="group cursor-pointer">

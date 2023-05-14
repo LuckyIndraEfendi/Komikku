@@ -10,18 +10,26 @@ const DaftarComic = () => {
     const { handleDesc } = useGlobalContext()
     const [value, setValue] = useState({
         isLoading: true,
-        setListComic: [],
         active: 1
     })
+
+    const [listComic, setListComic] = useState([]);
+    const [counter, setCounter] = useState(10);
 
     useEffect(() => {
         async function getListComics() {
             setValue({ ...value, isLoading: true })
             const response = await getListComic()
-            setValue({ ...value, setListComic: response, isLoading: false })
+            setListComic(response)
         }
         getListComics()
     }, [])
+
+    window.addEventListener('scroll', () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            setCounter(counter + 10);
+        }
+    });
     return (
         <>
             <div className="w-full">
@@ -43,7 +51,7 @@ const DaftarComic = () => {
                                     <Skeletons />
                                 ) : (
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-                                        {value.setListComic && value.setListComic.map((list, i) => (
+                                        {listComic.slice(0, counter).map((list, i) => (
                                             <a href={`/details${list.endpoint}`} key={i} onClick={() => handleDesc(list.desc)}>
                                                 <div className="group cursor-pointer">
                                                     <div className="image bg-cover bg-no-repeat h-[18vh] duration-200  md:h-[30vh] rounded-md relative bg-blend-darken  bg-top group-hover:opacity-80 " style={{ backgroundImage: `url(${list.image})` }}>
