@@ -2,7 +2,7 @@ import axios from 'axios';
 import { baseURL } from '../constans/baseURL';
 export const getPopularComic = async (page) => {
     try {
-        const res = await axios.get(`${baseURL}/popular/page/${page}`);
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/popular/page/${page}`);
         const data = await res.data;
         return data.data
     }
@@ -13,7 +13,7 @@ export const getPopularComic = async (page) => {
 
 export const getPopularComic2 = async (page) => {
     try {
-        const res = await axios.get(`${baseURL}/popular/page/${page}`);
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/popular/page/${page}`);
         const data = await res.data;
         return data.data
     }
@@ -26,7 +26,7 @@ export const getPopularComic2 = async (page) => {
 
 export const getRecommendedComic = async (page) => {
     try {
-        const res = await axios.get(`${baseURL}/recommended/page/${page}`);
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/recommended/page/${page}`);
         const data = await res.data;
         return data.data
     }
@@ -38,7 +38,7 @@ export const getRecommendedComic = async (page) => {
 
 export const getDetailComic = async (id) => {
     try {
-        const res = await axios.get(`${baseURL}/info/manga/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/info/manga/${id}`);
         const data = await res.data;
         return data.data
     }
@@ -49,7 +49,7 @@ export const getDetailComic = async (id) => {
 
 export const getSearchComic = async (query) => {
     try {
-        const res = await axios.get(`${baseURL}/search/${query}`);
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/search/${query}`);
         const data = await res.data;
         return data
     }
@@ -60,7 +60,7 @@ export const getSearchComic = async (query) => {
 
 export const getChapters = async (name) => {
     try {
-        const res = await axios.get(`${baseURL}/chapter/ch/${name}`);
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/chapter/ch/${name}`);
         const data = await res.data
         return data.data
     } catch (err) {
@@ -70,7 +70,7 @@ export const getChapters = async (name) => {
 
 export const getManhua = async () => {
     try {
-        const res = await axios.get(`${baseURL}/list?filter=manhua`);
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/list?filter=manhua`);
         const data = await res.data
         return data.data
     } catch (err) {
@@ -80,7 +80,7 @@ export const getManhua = async () => {
 
 export const getManhwa = async () => {
     try {
-        const res = await axios.get(`${baseURL}/list?filter=manhwa`);
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/list?filter=manhwa`);
         const data = await res.data
         return data.data
     } catch (err) {
@@ -90,7 +90,7 @@ export const getManhwa = async () => {
 
 export const getListComic = async () => {
     try {
-        const res = await axios.get(`${baseURL}/list`);
+        const res = await axios.get(`${import.meta.env.VITE_BASEURL}/list`);
         const data = await res.data
         return data.data
     } catch (err) {
